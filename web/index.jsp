@@ -22,25 +22,25 @@
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat1</span>
+                <span class="categoryLabelText">Categoría 1</span>
             </a>
         </div>
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat2</span>
+                <span class="categoryLabelText">Categoría 2</span>
             </a>
         </div>
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat3</span>
+                <span class="categoryLabelText">Categoría 3</span>
             </a>
         </div>
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">Cat4</span>
+                <span class="categoryLabelText">Categoría 4</span>
             </a>
         </div>
     </div>
