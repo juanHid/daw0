@@ -5,8 +5,6 @@
 --%>
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
 
 
 
@@ -16,15 +14,15 @@
                     <span class="categoryText">Cat 1</span>
                 </div>
 
-                <a href="#" class="categoryButton">
+                <a href="category" class="categoryButton">
                     <span class="categoryText">Cat 2</span>
                 </a>
 
-                <a href="#" class="categoryButton">
+                <a href="category" class="categoryButton">
                     <span class="categoryText">Cat 3</span>
                 </a>
 
-                <a href="#" class="categoryButton">
+                <a href="category" class="categoryButton">
                     <span class="categoryText">Cat 4</span>
                 </a>
             </div>
@@ -44,7 +42,7 @@
                         </td>
                         <td class="lightBlue">[ precio ]</td>
                         <td class="lightBlue">
-                            <form action="#" method="post">
+                            <form action="addToCart" method="post">
                                 <input type="submit" value="comprar">
                             </form>
                         </td>
@@ -61,7 +59,7 @@
                         </td>
                         <td class="white">[ precio ]</td>
                         <td class="white">
-                            <form action="#" method="post">
+                            <form action="addToCart" method="post">
                                 <input type="submit" value="comprar">
                             </form>
                         </td>
@@ -78,7 +76,7 @@
                         </td>
                         <td class="lightBlue">[ precio ]</td>
                         <td class="lightBlue">
-                            <form action="#" method="post">
+                            <form action="addToCart" method="post">
                                 <input type="submit" value="comprar">
                             </form>
                         </td>
@@ -95,7 +93,7 @@
                         </td>
                         <td class="white">[ precio ]</td>
                         <td class="white">
-                            <form action="#" method="post">
+                            <form action="addToCart" method="post">
                                 <input type="submit" value="Comprar">
                             </form>
                         </td>

@@ -3,24 +3,23 @@
     Created on : 12-mar-2014, 16:48:46
     Author     : Administrador
 --%>
-<%@page errorPage="../error.jsp" contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+
+
 
 
 
 
             <div id="centerColumn">
 
-                <p>Tu carrito de la compra contiene X artÃ­culos.</p>
+                <p>Tu carrito de la compra contiene X artículos.</p>
 
                  <div id="actionBar">
                     <%-- si esta definido el carrito i el numero de elemento  es >0--%>
                     <a href="#" class="bubble hMargin">limpiar carrito</a>
                      <%-- si el usuario ha selecionado una categoria sino me quedo en la pagina inicial--%>
-                    <a href="#" class="bubble hMargin">continuar la compra</a>
+                    <a href="category" class="bubble hMargin">continuar la compra</a>
                      <%-- si esta definido el carrito i el numero de elemento es >0 procedo con el pedido--%>
-                    <a href="#" class="bubble hMargin">proceder con el pedido</a>
+                    <a href="checkout" class="bubble hMargin">proceder con el pedido</a>
                 </div>
 
                 <%-- si el carrito esta definiido y tengo elementos en el carrito  --%>  

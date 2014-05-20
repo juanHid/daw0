@@ -39,13 +39,33 @@ public class ControllerServlet extends HttpServlet {
         String userPath= request.getServletPath();
         String url=null;
        
+        if(userPath.equals("/category")){
+            //muestra pagina de productos por categoria
+           url="/WEB-INF/view/category.jsp";
+            
+        }else if (userPath.equals("/viewCart")){
+             //muestra contenido del carrito
+              url="/WEB-INF/view/cart.jsp";
+              
+        }else if (userPath.equals("/checkout")){
+            //muestra pagina datos personales para el pedido
+             url="/WEB-INF/view/checkout.jsp";
+        }else {
+            //nada
+        }
+        
+        
         //hacer lo q sea
-         PrintWriter out = response.getWriter();
-
-         out.println(url);                  
+        
+        //Por si hay q imprimir
+        // PrintWriter out = response.getWriter();
+        // out.println(url);   
+        
+        
+        
         
         //Redireccionamos a la pagina correspondiente para mostrar los datos
-        url="/WEB-INF/view/"+userPath+".jsp";
+       
         request.setAttribute("view", url);
         request.getRequestDispatcher(url).forward(request, response);
     }
@@ -62,6 +82,29 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+            //Miramos qwuien nos llama para hacer una cosa u otra
+        String userPath= request.getServletPath();
+        String url=null;
+       
+        if(userPath.equals("/addToCart")){
+            //muestra pagina de productos por categoria
+           url="/WEB-INF/view/category.jsp";
+            
+        }else if (userPath.equals("/updateCart")){
+             //muestra contenido del carrito
+              url="/WEB-INF/view/cart.jsp";
+              
+        }else if (userPath.equals("/purchase")){
+            //muestra pagina datos personales para el pedido
+             url="/WEB-INF/view/confirmation.jsp";
+        }else {
+            //nada
+        }
+        
+       //Redireccionamos a la pagina correspondiente para mostrar los datos
+       
+        request.setAttribute("view", url);
+        request.getRequestDispatcher(url).forward(request, response);
         
         
     }

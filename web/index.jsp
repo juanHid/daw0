@@ -24,19 +24,19 @@
             </a>
         </div>
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Categoría 2</span>
             </a>
         </div>
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Categoría 3</span>
             </a>
         </div>
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
                 <span class="categoryLabelText">Categoría 4</span>
             </a>
