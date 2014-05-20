@@ -7,6 +7,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +35,19 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //Miramos qwuien nos llama para hacer una cosa u otra
+        String userPath= request.getServletPath();
+        String url=null;
        
+        //hacer lo q sea
+         PrintWriter out = response.getWriter();
+
+         out.println(url);                  
+        
+        //Redireccionamos a la pagina correspondiente para mostrar los datos
+        url="/WEB-INF/view/"+userPath+".jsp";
+        request.setAttribute("view", url);
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**

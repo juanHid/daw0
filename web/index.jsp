@@ -4,11 +4,9 @@
     Author     : Administrador
 --%>
 
-<%@page errorPage="WEB-INF/error.jsp" contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
 
-<jsp:include page="header.jsp"></jsp:include>
+
+
 
     <div id="indexLeftColumn">
         <div id="welcomeText">
@@ -20,32 +18,32 @@
 
     <div id="indexRightColumn">
         <div class="categoryBox">
-            <a href="#">
+            <a href="category">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">CategorÃ­a 1</span>
+                <span class="categoryLabelText">Categoría 1</span>
             </a>
         </div>
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">CategorÃ­a 2</span>
+                <span class="categoryLabelText">Categoría 2</span>
             </a>
         </div>
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">CategorÃ­a 3</span>
+                <span class="categoryLabelText">Categoría 3</span>
             </a>
         </div>
         <div class="categoryBox">
             <a href="#">
                  <span class="categoryLabel"></span>
-                <span class="categoryLabelText">CategorÃ­a 4</span>
+                <span class="categoryLabelText">Categoría 4</span>
             </a>
         </div>
     </div>
     
-<jsp:include page="footer.jsp"></jsp:include>
+
 
 
 
