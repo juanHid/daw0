@@ -11,7 +11,7 @@
 
             <div id="centerColumn">
 
-                <p>Tu carrito de la compra contiene X artículos.</p>
+                <p>Tu carrito de la compra contiene X artï¿½culos.</p>
 
                  <div id="actionBar">
                     <%-- si esta definido el carrito i el numero de elemento  es >0--%>
@@ -31,7 +31,7 @@
                         <th>producto</th>
                         <th>nombre</th>
                         <th>precio</th>
-                        <th>cuantidad</th>
+                        <th>cantidad</th>
                     </tr>
 
                     <tr>
@@ -59,7 +59,7 @@
                                 <input type="text"
                                        maxlength="2"
                                        size="2"
-                                       value="1" <%--cuantidad de productos que tengo en el carrito --%>
+                                       value="1" <%--cantidad de productos que tengo en el carrito --%>
                                        name="quantity">
                                 <input type="submit"
                                        name="submit"
@@ -84,7 +84,7 @@
                             </span>
                         </td>
                         
-                        <td class="white">[ cuantidad ]
+                        <td class="white">[ cantidad ]
 
                             <form action="updateCart" method="post">
                                 <input type="hidden"
@@ -93,7 +93,7 @@
                                 <input type="text"
                                        maxlength="2"
                                        size="2"
-                                       value="1" <%--cuantidad de productos que tengo en el carrito --%>
+                                       value="1" <%--cantidad de productos que tengo en el carrito --%>
                                        name="quantity">
                                 <input type="submit"
                                        name="submit"
@@ -118,7 +118,7 @@
                             </span>
                         </td>
                         
-                        <td class="lightBlue">[ cuantidad ]
+                        <td class="lightBlue">[ cantidad ]
 
                             <form action="updateCart" method="post">
                                 <input type="hidden"
@@ -127,7 +127,7 @@
                                 <input type="text"
                                        maxlength="2"
                                        size="2"
-                                       value="1" <%--cuantidad de productos que tengo en el carrito --%>
+                                       value="1" <%--cantidad de productos que tengo en el carrito --%>
                                        name="quantity">
                                 <input type="submit"
                                        name="submit"
