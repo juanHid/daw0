@@ -11,24 +11,24 @@
 
             <div id="categoryLeftColumn">
                 <div class="categoryButton" id="selectedCategory">
-                    <span class="categoryText">Cat 1</span>
+                    <span class="categoryText">Categoría 1</span>
                 </div>
 
                 <a href="category" class="categoryButton">
-                    <span class="categoryText">Cat 2</span>
+                    <span class="categoryText">Categoría 2</span>
                 </a>
 
                 <a href="category" class="categoryButton">
-                    <span class="categoryText">Cat 3</span>
+                    <span class="categoryText">Categoría 3</span>
                 </a>
 
                 <a href="category" class="categoryButton">
-                    <span class="categoryText">Cat 4</span>
+                    <span class="categoryText">Categoría 4</span>
                 </a>
             </div>
 
             <div id="categoryRightColumn">
-                <p id="categoryTitle">[ categoria selecionada ]</p>
+                <p id="categoryTitle">[ categoría selecionada ]</p>
 
                 <table id="productTable">
                     <tr>
@@ -38,7 +38,7 @@
                         <td class="lightBlue">
                             [ nombre producto  ]
                             <br>
-                            <span class="smallText">[ descripcion producto  ]</span>
+                            <span class="smallText">[ descripción producto  ]</span>
                         </td>
                         <td class="lightBlue">[ precio ]</td>
                         <td class="lightBlue">
@@ -55,7 +55,7 @@
                         <td class="white">
                             [ nombre producto ]
                             <br>
-                            <span class="smallText">[ descripcion producto ]</span>
+                            <span class="smallText">[ descripción producto ]</span>
                         </td>
                         <td class="white">[ precio ]</td>
                         <td class="white">
@@ -72,7 +72,7 @@
                         <td class="lightBlue">
                             [ nombre producto ]
                             <br>
-                            <span class="smallText">[ descripcion producto ]</span>
+                            <span class="smallText">[ descripción producto ]</span>
                         </td>
                         <td class="lightBlue">[ precio ]</td>
                         <td class="lightBlue">
@@ -89,7 +89,7 @@
                         <td class="white">
                             [ nombre producto ]
                             <br>
-                            <span class="smallText">[ descripcion producto ]</span>
+                            <span class="smallText">[ descripción producto ]</span>
                         </td>
                         <td class="white">[ precio ]</td>
                         <td class="white">
