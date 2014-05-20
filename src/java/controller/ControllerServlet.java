@@ -87,15 +87,15 @@ public class ControllerServlet extends HttpServlet {
         String url=null;
        
         if(userPath.equals("/addToCart")){
-            //muestra pagina de productos por categoria
+            //agrega producto al carrito
            url="/WEB-INF/view/category.jsp";
             
         }else if (userPath.equals("/updateCart")){
-             //muestra contenido del carrito
+             //aumenta la cantidad del producto en el carrito
               url="/WEB-INF/view/cart.jsp";
               
         }else if (userPath.equals("/purchase")){
-            //muestra pagina datos personales para el pedido
+            //resumen del pedido
              url="/WEB-INF/view/confirmation.jsp";
         }else {
             //nada
