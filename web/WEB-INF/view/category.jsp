@@ -38,7 +38,7 @@
                         <td class="lightBlue">
                             [ nombre producto  ]
                             <br>
-                            <span class="smallText">[ descripción producto  ]${categoria.nombre}</span>
+                            <span class="smallText">[ descripción producto  ]</span>
                         </td>
                         <td class="lightBlue">[ precio ]</td>
                         <td class="lightBlue">

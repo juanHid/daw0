@@ -54,7 +54,7 @@ public class ControllerServlet extends HttpServlet {
            
            //Para probar la pagina de error:
            //creamos un objeto categoria en session
-           request.getSession().setAttribute("categoria", url);
+          // request.getSession().setAttribute("categoria", url);
           //despues en el archivo al que nos dirijimos , llamamos
           //al objeto categoria con una propiedad inexistente para que salte error
           //${categoria.nombre}
