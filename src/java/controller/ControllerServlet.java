@@ -13,12 +13,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import managers.LoggerManager;
 
 /**
  *
  * @author Administrador
  */
 public class ControllerServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+        String prefix = getServletContext().getRealPath("/");
+        LoggerManager.prefix = prefix;
+    
+    }
 
     
 
@@ -42,7 +51,14 @@ public class ControllerServlet extends HttpServlet {
         if(userPath.equals("/category")){
             //muestra pagina de productos por categoria
            url="/WEB-INF/view/category.jsp";
-            
+           
+           //Para probar la pagina de error:
+           //creamos un objeto categoria en session
+           request.getSession().setAttribute("categoria", url);
+          //despues en el archivo al que nos dirijimos , llamamos
+          //al objeto categoria con una propiedad inexistente para que salte error
+          //${categoria.nombre}
+           
         }else if (userPath.equals("/viewCart")){
              //muestra contenido del carrito
               url="/WEB-INF/view/cart.jsp";
@@ -66,6 +82,8 @@ public class ControllerServlet extends HttpServlet {
         
         //Redireccionamos a la pagina correspondiente para mostrar los datos
        
+        LoggerManager.getLog().info(url);
+        
         request.setAttribute("view", url);
         request.getRequestDispatcher(url).forward(request, response);
     }

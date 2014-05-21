@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Error page</h1>
+        <!--todo -->
+        <p> ${view}</p>
+        <p><%= exception.toString()%></p>
     </body>
 </html>
