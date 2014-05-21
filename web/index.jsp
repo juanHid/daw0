@@ -8,7 +8,8 @@
 
 
 
-    <div id="indexLeftColumn">
+  
+<div id="indexLeftColumn">
         <div id="welcomeText">
             <p>[ mensaje de bienvenida ]</p>
             
@@ -17,12 +18,29 @@
     </div>
 
     <div id="indexRightColumn">
-        <div class="categoryBox">
-            <a href="category">
-                 <span class="categoryLabel"></span>
-                <span class="categoryLabelText">CATEGORIA 1</span>
-            </a>
-        </div>
+        
+       
+        <c:forEach  var="categoria" items="${listaCategorias}"  >
+            
+                <div class="categoryBox">
+                 <a href="category?categoriaId=${categoria.id}"><br/>
+                   <span class="categoryLabel"></span>
+                   <span class="categoryLabelText">${categoria.nombre}</span>
+                   <img src="${initParam.categoryImagePath}/${categoria.imagen}" alt="${categoria.nombre}" width="210px" height="174px"/>
+                   
+                 </a>
+             </div>
+            
+            
+        </c:forEach>
+        
+        
+    
+            
+            
+            
+  <!--         
+            
         <div class="categoryBox">
             <a href="category">
                  <span class="categoryLabel"></span>
@@ -41,6 +59,9 @@
                 <span class="categoryLabelText">CATEGORIA 4</span>
             </a>
         </div>
+  
+  -->
+  
     </div>
     
 
