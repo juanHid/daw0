@@ -23,7 +23,6 @@
             30
         </session-timeout>
     </session-config>
-    
     <context-param>
         <param-name>productImagePath</param-name>
         <param-value>images/products</param-value>
@@ -34,11 +33,7 @@
     </context-param>
     <jsp-config>
         <jsp-property-group>
-            <url-pattern>/index.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/category.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/checkout.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/confirmation.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/cart.jsp</url-pattern>
+            <url-pattern>*.jsp</url-pattern>      
             <include-prelude>/WEB-INF/jspf/header.jsp</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jsp</include-coda>
         </jsp-property-group>
