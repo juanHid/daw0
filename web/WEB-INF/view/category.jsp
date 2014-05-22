@@ -38,7 +38,7 @@ para asignarle un color diferente a la fila que se muestra.
                <table id="productTable">    
 
             <div id="categoryRightColumn">
-                <p id="categoryTitle">[ categoría selecionada ]</p>
+                <p id="categoryTitle">${categoriaSeleccionada.nombre}</p>
                 
                 
                 <c:forEach var="producto" items="${categoriaSeleccionada.listaProductos}" varStatus="num">

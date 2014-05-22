@@ -165,11 +165,13 @@ table {
 }
 
 #categoryTitle {
-    margin: -34px 180px 0 0;
+    margin: -34px 50px 0 0;
     font-size: x-large;
     float: right;
-    background-color: #f5eabe;
+    background-color: #868672;
     padding: 7px;
+    display:inline-block;
+    width: 581px;
 }
 
 .categoryText {
