@@ -173,20 +173,20 @@ public class ControllerServlet extends HttpServlet {
         Producto london = new Producto(3,"Londres al completo","Visita la ciudad navegando a través del río Támesis",2101,"london.jpg",1);
         Producto paris = new Producto(4,"Paris la nuit","Diviértete como un niño en EuroDisney",2202,"paris.jpg",1);
         
-        Producto acapulco = new Producto(5,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",2);
-        Producto newyork = new Producto(6,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",2);
-        Producto machupichu = new Producto(7,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",2);
-        Producto colorado = new Producto(8,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",2);
+        Producto acapulco = new Producto(5,"Acapulco ven y salta!","blablablablabla",1500,"acapulco.jpg",2);
+        Producto newyork = new Producto(6,"New York muerde la manzana!","blablablablabla",1500,"newyork.jpg",2);
+        Producto machupichu = new Producto(7,"Machupichu ancestral","blablablablabla",1500,"machupichu.jpg",2);
+        Producto colorado = new Producto(8,"Colorado: Gran cañón","blablablablabla",1500,"colorado.jpg",2);
         
-        Producto egipto = new Producto(9,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",3);
-        Producto marruecos = new Producto(10,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",3);
-        Producto tunez = new Producto(11,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",3);
-        Producto zimbawe = new Producto(12,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",3);
+        Producto egipto = new Producto(9,"Barcelona modernista","blablablablabla",1500,"egipto.png",3);
+        Producto marruecos = new Producto(10,"Barcelona modernista","blablablablabla",1500,"marruecos.jpg",3);
+        Producto tunez = new Producto(11,"Barcelona modernista","blablablablabla",1500,"tunez.png",3);
+        Producto zimbawe = new Producto(12,"Barcelona modernista","blablablablabla",1500,"zimbawe.png",3);
         
-        Producto pekin = new Producto(13,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",4);
-        Producto bangkok = new Producto(14,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",4);
-        Producto hochiminh = new Producto(15,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",4);
-        Producto tokyo = new Producto(16,"Barcelona modernista","blablablablabla",1500,"barcelona.jpg",4);
+        Producto pekin = new Producto(13,"Barcelona modernista","blablablablabla",1500,"pekin.png",4);
+        Producto bangkok = new Producto(14,"Barcelona modernista","blablablablabla",1500,"bangkok.png",4);
+        Producto hochiminh = new Producto(15,"Barcelona modernista","blablablablabla",1500,"hochiminh.png",4);
+        Producto tokyo = new Producto(16,"Barcelona modernista","blablablablabla",1500,"tokyo.png",4);
         
         ArrayList<Producto> listaEuropa=new ArrayList<Producto>();
         listaEuropa.add(barcelona); 

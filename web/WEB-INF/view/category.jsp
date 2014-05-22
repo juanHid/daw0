@@ -2,6 +2,16 @@
     Document   : categoria
     Created on : 12-mar-2014, 16:48:46
     Author     : Administrador
+
+1. En la lista de categorías buscamos cada categoría y si es igual
+a la categoría seleccionada que pasamos por la URL entonces la destacamos en 
+el HTML si no la mostramos standard.
+
+2. En los producos recorremos la lista de productos de la categoría seleccionada
+par mostrar los productos.
+Al mismo tiempo comprobamos si el idex del producto es par o impar 
+para asignarle un color diferente a la fila que se muestra. 
+
 --%>
 <div id="categoryLeftColumn">
      
@@ -25,24 +35,39 @@
 
   
                 
-                
+               <table id="productTable">    
 
             <div id="categoryRightColumn">
                 <p id="categoryTitle">[ categoría selecionada ]</p>
                 
                 
-                <c:forEach var="producto" items="${categoriaSeleccionada.listaProductos}">
-                   <tr>
-                        <td class="lightBlue">
+                <c:forEach var="producto" items="${categoriaSeleccionada.listaProductos}" varStatus="num">
+                    
+                    <c:choose>
+                        <c:when test="${num.index %2==0}">
+                             <c:set var="tipo" value="lightBlue" /> 
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="tipo" value="white" /> 
+                        </c:otherwise>
+                        
+                    </c:choose>
+                    
+                   
+                      
+                     
+                    
+                    <tr>
+                        <td class="${tipo}">
                             <img src= "${initParam.productImagePath}/${producto.imagen}" width="140px" height="80px" alt="product image">
                         </td>
-                        <td class="lightBlue">
+                        <td class="${tipo}">
                             ${producto.nombre}  
                             <br>
                             <span class="smallText"> ${producto.descripcion}</span>
                         </td>
-                        <td class="lightBlue"> ${producto.precio} &euro; </td>
-                        <td class="lightBlue">
+                        <td class="${tipo}"> ${producto.precio} &euro; </td>
+                        <td class="${tipo}">
                             <form action="addToCart" method="post">
                                 <input type="submit" value="comprar">
                             </form>
