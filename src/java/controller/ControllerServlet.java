@@ -35,9 +35,9 @@ public class ControllerServlet extends HttpServlet {
         listaCategorias = new ArrayList<Categoria>();
         createCategoriasBeans();
         
+        //lo guardamos en la aplicación
         getServletContext().setAttribute("listaCategorias", listaCategorias);
-    
-            
+     
     }
 
     
@@ -70,9 +70,11 @@ public class ControllerServlet extends HttpServlet {
            //esto lo debemos almacenar en session para visualizarlo en el jsp
            categoriaIdInt=Integer.parseInt(categoriaId);
            catTemp=buscaCategoria(categoriaIdInt);
+         
+           //Lo guardamos en session
            
-           request.setAttribute("catId", categoriaIdInt);
-           request.setAttribute("categoriaSeleccionada", catTemp);
+           request.getSession().setAttribute("catId", categoriaIdInt);
+           request.getSession().setAttribute("categoriaSeleccionada", catTemp);
            
            
            
