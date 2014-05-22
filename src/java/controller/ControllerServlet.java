@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package controller;
 
@@ -18,10 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import managers.LoggerManager;
 
-/**
- *
- * @author Administrador
- */
+
+
 public class ControllerServlet extends HttpServlet {
 
     ArrayList<Categoria> listaCategorias;
@@ -63,20 +56,22 @@ public class ControllerServlet extends HttpServlet {
         Categoria catTemp;
        
         if(userPath.equals("/category")){
-            //muestra pagina de productos por categoria
+           //Muestra pagina de productos por categoria
+            
+           //Pagina a la que nos dirigiremos despues 
            url="/WEB-INF/view/category.jsp";
+           //obtenemos el valor de categoriaId que nos viene en la url
+           // y lo pasamos a int
            categoriaId=request.getParameter("categoriaId");
-           
-           //esto lo debemos almacenar en session para visualizarlo en el jsp
            categoriaIdInt=Integer.parseInt(categoriaId);
+           // Obtenemos la categoria que corresponde a ese id
            catTemp=buscaCategoria(categoriaIdInt);
          
-           //Lo guardamos en session
            
+           //Esto lo debemos almacenar en session para visualizarlo en el jsp
            request.getSession().setAttribute("catId", categoriaIdInt);
            request.getSession().setAttribute("categoriaSeleccionada", catTemp);
-           
-           
+ 
            
            //Para probar la pagina de error:
            //creamos un objeto categoria en session
@@ -84,10 +79,7 @@ public class ControllerServlet extends HttpServlet {
           //despues en el archivo al que nos dirijimos , llamamos
           //al objeto categoria con una propiedad inexistente para que salte error
           //${categoria.nombre}
-           
-           
-           
-           
+ 
            
         }else if (userPath.equals("/viewCart")){
              //muestra contenido del carrito
@@ -101,20 +93,16 @@ public class ControllerServlet extends HttpServlet {
         }
         
         
-        //hacer lo q sea
-        
         //Por si hay q imprimir
         // PrintWriter out = response.getWriter();
         // out.println(url);   
-        
-        
-        
-        
-        //Redireccionamos a la pagina correspondiente para mostrar los datos
-       
+
+        //Log de control
         LoggerManager.getLog().info(url);
         
+        //Pasamos en el request la url por si da error saber qué pagina
         request.setAttribute("view", url);
+        //Redireccionamos a la pagina correspondiente para mostrar los datos 
         request.getRequestDispatcher(url).forward(request, response);
     }
 
