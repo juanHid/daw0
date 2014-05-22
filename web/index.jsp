@@ -2,6 +2,7 @@
     <div id="indexLeftColumn">
         <div id="welcomeText">
             <p>[ Bienvenid@s a Viajes Transcontinental ]</p>
+            <p>[ Una tienda virtual para la práctica de JSP ]</p>
             
             
         </div>
