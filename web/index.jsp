@@ -1,7 +1,7 @@
 
     <div id="indexLeftColumn">
         <div id="welcomeText">
-            <p>[ mensaje de bienvenida ]</p>
+            <p>[ Bienvenid@s a Viajes Transcontinental ]</p>
             
             
         </div>
