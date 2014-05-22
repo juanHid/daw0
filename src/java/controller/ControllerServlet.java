@@ -58,10 +58,23 @@ public class ControllerServlet extends HttpServlet {
         //Miramos qwuien nos llama para hacer una cosa u otra
         String userPath= request.getServletPath();
         String url=null;
+        String categoriaId;
+        int categoriaIdInt;
+        Categoria catTemp;
        
         if(userPath.equals("/category")){
             //muestra pagina de productos por categoria
            url="/WEB-INF/view/category.jsp";
+           categoriaId=request.getParameter("categoriaId");
+           
+           //esto lo debemos almacenar en session para visualizarlo en el jsp
+           categoriaIdInt=Integer.parseInt(categoriaId);
+           catTemp=buscaCategoria(categoriaIdInt);
+           
+           request.setAttribute("catId", categoriaIdInt);
+           request.setAttribute("categoriaSeleccionada", catTemp);
+           
+           
            
            //Para probar la pagina de error:
            //creamos un objeto categoria en session
@@ -69,6 +82,10 @@ public class ControllerServlet extends HttpServlet {
           //despues en el archivo al que nos dirijimos , llamamos
           //al objeto categoria con una propiedad inexistente para que salte error
           //${categoria.nombre}
+           
+           
+           
+           
            
         }else if (userPath.equals("/viewCart")){
              //muestra contenido del carrito
@@ -205,6 +222,20 @@ public class ControllerServlet extends HttpServlet {
         listaCategorias.add(africa);
         listaCategorias.add(asia);
         
+    }
+
+    private Categoria buscaCategoria(int categoriaIdInt) {
+        Categoria catTemp=null;
+        
+        for(int i=0;i<listaCategorias.size();i++){
+            
+            if(listaCategorias.get(i).getId()==categoriaIdInt){
+                catTemp=listaCategorias.get(i);
+                 return catTemp;
+            }      
+        }
+ 
+        return catTemp;    
     }
 
 }
