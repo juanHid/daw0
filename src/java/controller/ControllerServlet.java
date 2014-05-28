@@ -325,10 +325,10 @@ public class ControllerServlet extends HttpServlet {
 
                 listaProducto.add(producto);
                 
-                
+          /*      
              LoggerManager.getLog().info(id);
               LoggerManager.getLog().info(nombre);
-              LoggerManager.getLog().info(imagen);
+              LoggerManager.getLog().info(imagen);*/
             }
 
             preparedStatement.close();
