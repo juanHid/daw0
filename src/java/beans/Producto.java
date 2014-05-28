@@ -15,6 +15,18 @@ public class Producto {
     private int categoriaId;
     private Date ultimaActualizacion;
 
+    public Producto(int id, String nombre, String descripcion, double precio, String imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.imagen = imagen;
+    }
+
+    
+    
+    
+    
     public Producto(int id, String nombre, String descripcion, double precio, String imagen, int categoriaId) {
         this.id = id;
         this.nombre = nombre;

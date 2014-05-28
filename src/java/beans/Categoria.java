@@ -17,6 +17,15 @@ public class Categoria {
         this.listaProductos= listaProductos;
     }
 
+    public Categoria(int id, String nombre, String imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.imagen = imagen;
+    }
+
+    
+    
+    
     public ArrayList<Producto> getListaProductos() {
         return listaProductos;
     }

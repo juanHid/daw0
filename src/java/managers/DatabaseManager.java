@@ -8,13 +8,15 @@ package managers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
+
 import java.util.Properties;
 import java.net.UnknownHostException;
-import managers.LoggerManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 
 /**
@@ -38,8 +40,6 @@ public class DatabaseManager {
     /**
      * @return @throws Exception
      */
-    
-    //Crea la conexion
     public static void openConnection()  {
         try {
             //Connection conn = null;
@@ -56,7 +56,6 @@ public class DatabaseManager {
     /**
      *
      */
-    //Cierra conexion
     public static void closeConnection() {
 
         try {
@@ -113,50 +112,38 @@ public class DatabaseManager {
         stmt.close();
     }
 
-        /**
-     * @param insertSql
-     * @throws SQLException
-     * @return id
-     */
-    
-    public static int executeUpdate(String insertSql) throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-          int id=-1;
-          PreparedStatement preparedStatement;
-          ResultSet resultSet;
-          
-          //Lo mostramos en el logger
-           if (LoggerManager.DEBUG) {
-                    LoggerManager.getLog().info("sql "+ insertSql);
-                  
-              }
- 
-          
-          String ultimoIdQuery="SELECT last_insert_id() as last_id";
-          
-          
-          //preparo y ejecuto el INSERT  a la base de datos
-            preparedStatement=conn.prepareStatement(insertSql);
-            //ejecuto la query
-            preparedStatement.executeUpdate();  
-            
-            //Obtengo el ultimo id insertado para devolverlo
-            preparedStatement=conn.prepareStatement(ultimoIdQuery);
-            resultSet=preparedStatement.executeQuery();
-                       //proceso resultado
-            while(resultSet.next()){
-                //guardo en la variable id el ultimo id insertado
-                id=resultSet.getInt("last_id");
-   
-            }
-            
-              //Cierro objetos java
-            preparedStatement.close();
-            resultSet.close(); 
-            
-            
-    
-          return id;
+    public static int executeUpdate(String insertSql) throws SQLException  {
+       
+        int id = -1;
+        String ultimoIdQuery = "SELECT last_insert_id() as last_id";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        //imprimo la query en el logger
+        if (LoggerManager.DEBUG)
+            LoggerManager.getLog().info(insertSql);
+        
+        //creamos el preparedStatement para ejecutar el sql
+        preparedStatement = conn.prepareStatement(insertSql);
+        //lo ejecutamos
+        preparedStatement.executeUpdate();
+        
+        //queremos recuperar el id del ultimo elemento añadido a la base de datos
+        //creamos el preparedStament para ejecutar la SELECT
+        preparedStatement = conn.prepareStatement(ultimoIdQuery);
+        //ejecutamos la query ultimoIdQuery
+        resultSet = preparedStatement.executeQuery();
+        
+        //procesamos el resultado
+        while (resultSet.next()) {
+            id = resultSet.getInt("last_id");
+        }
+        
+        //cierro los objetos Java que gestionan una query y su resultado 
+        preparedStatement.close();
+        resultSet.close();
+        
+        return id;
     }
 
     
