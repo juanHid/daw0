@@ -22,6 +22,7 @@ import managers.LoggerManager;
 public class ControllerServlet extends HttpServlet {
 
     ArrayList<Categoria> listaCategorias;
+    ArrayList<Producto> listaProductos ;
 
     @Override
     public void init() throws ServletException {
@@ -43,13 +44,13 @@ public class ControllerServlet extends HttpServlet {
         DatabaseManager.openConnection();
 
         listaCategorias = new ArrayList<Categoria>();
-
+  //  listaProductos = new ArrayList<Producto>();
         //llamamos a una funcion que busque en base de datos todas las categorias
         listaCategorias = buscaCategorias();
         //lo guardamos en session
         getServletContext().setAttribute("listaCategorias", listaCategorias);
-       
-        //Clerrar conexion
+
+        //Cerrar conexion
         DatabaseManager.closeConnection();
     }
 
@@ -72,8 +73,8 @@ public class ControllerServlet extends HttpServlet {
         String categoriaId;
         int categoriaIdInt;
         Categoria catTemp;
-        ArrayList<Producto> listaProductos=new ArrayList<Producto>();
-
+      //   ArrayList<Producto> listaProductos=new ArrayList<Producto>();
+ listaProductos=new ArrayList<Producto>();
         if (userPath.equals("/category")) {
            //Muestra pagina de productos por categoria
 
@@ -84,20 +85,18 @@ public class ControllerServlet extends HttpServlet {
             categoriaId = request.getParameter("categoriaId");
             categoriaIdInt = Integer.parseInt(categoriaId);
             // Obtenemos la categoria que corresponde a ese id
-           catTemp = buscaCategoria(categoriaIdInt);
+            catTemp = buscaCategoria(categoriaIdInt);
 
-           
-           
             //Esto lo debemos almacenar en session para visualizarlo en el jsp
             request.getSession().setAttribute("catId", categoriaIdInt);
             request.getSession().setAttribute("categoriaSeleccionada", catTemp);
-      
-      DatabaseManager.openConnection();
-            
-    listaProductos=buscaProductos(categoriaIdInt);
-     DatabaseManager.closeConnection();
-     
- request.getSession().setAttribute("nuevaListaProductos", listaProductos);
+
+            DatabaseManager.openConnection();
+
+            listaProductos = buscaProductos(categoriaIdInt);
+            DatabaseManager.closeConnection();
+
+            request.getSession().setAttribute("nuevaListaProductos", listaProductos);
             //Para probar la pagina de error:
             //creamos un objeto categoria en session
             // request.getSession().setAttribute("categoria", url);
@@ -146,6 +145,26 @@ public class ControllerServlet extends HttpServlet {
         if (userPath.equals("/addToCart")) {
             //agrega producto al carrito
             url = "/WEB-INF/view/category.jsp";
+            
+            
+                      //agrega producto al carrito
+            String productoId=request.getParameter("productoId");
+            
+          
+            int productoIdInt=Integer.parseInt(productoId);
+            
+            LoggerManager.getLog().info("obtenido int " +productoIdInt);
+            
+            Producto producto=listaProductos.get(productoIdInt);
+           // carrito.add(producto);
+            
+            LoggerManager.getLog().info("añadido " +producto.getNombre()); 
+            
+            
+            
+            
+            
+            
 
         } else if (userPath.equals("/updateCart")) {
             //aumenta la cantidad del producto en el carrito
@@ -272,9 +291,9 @@ public class ControllerServlet extends HttpServlet {
                 Categoria categoria = new Categoria(id, nombre, imagen);
 
                 listaCateg.add(categoria);
-          /*    LoggerManager.getLog().info(id);
-              LoggerManager.getLog().info(nombre);
-              LoggerManager.getLog().info(imagen);*/
+                /*    LoggerManager.getLog().info(id);
+                 LoggerManager.getLog().info(nombre);
+                 LoggerManager.getLog().info(imagen);*/
             }
 
             preparedStatement.close();
@@ -293,23 +312,22 @@ public class ControllerServlet extends HttpServlet {
 
     private ArrayList<Producto> buscaProductos(int categoriaIdInt) {
         ArrayList<Producto> listaProducto = new ArrayList<Producto>();
-        int idCat=categoriaIdInt;
+        int idCat = categoriaIdInt;
         //Creamos los objetos para ejecutar la query
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         //query
-        String productoSql = "SELECT * FROM producto WHERE producto.categoria_id="+idCat+" ORDER BY precio";
-        
-          try {
+        String productoSql = "SELECT * FROM producto WHERE producto.categoria_id=" + idCat + " ORDER BY precio";
+
+        try {
             preparedStatement = DatabaseManager.conn.prepareStatement(productoSql);
             resultSet = preparedStatement.executeQuery();
-            
+
             int id;
             String nombre;
             double precio;
             String descripcion;
             String imagen;
-            
 
             while (resultSet.next()) {
 
@@ -318,17 +336,15 @@ public class ControllerServlet extends HttpServlet {
                 imagen = resultSet.getString("imagen");
                 precio = resultSet.getDouble("precio");
                 descripcion = resultSet.getString("descripcion");
-                
-                
-                
-                Producto producto = new Producto(id, nombre, descripcion,precio,imagen);
+
+                Producto producto = new Producto(id, nombre, descripcion, precio, imagen);
 
                 listaProducto.add(producto);
-                
-          /*      
-             LoggerManager.getLog().info(id);
-              LoggerManager.getLog().info(nombre);
-              LoggerManager.getLog().info(imagen);*/
+
+                /*      
+                 LoggerManager.getLog().info(id);
+                 LoggerManager.getLog().info(nombre);
+                 LoggerManager.getLog().info(imagen);*/
             }
 
             preparedStatement.close();
@@ -337,8 +353,7 @@ public class ControllerServlet extends HttpServlet {
         } catch (SQLException ex) {
             LoggerManager.getLog().error(ex.toString());
 
-        } 
-         catch (Exception ex) {
+        } catch (Exception ex) {
             LoggerManager.getLog().error(ex.toString());
 
         } finally {
@@ -347,10 +362,5 @@ public class ControllerServlet extends HttpServlet {
 
         }
 
-        
-        
-      
-        
-       
     }
 }
