@@ -62,6 +62,7 @@ para asignarle un color diferente a la fila que se muestra.
                 <td class="${tipo}"> ${producto.precio} &euro; </td>
                 <td class="${tipo}">
                     <form action="addToCart" method="post">
+                        <input type="hidden" name="productoId" value="${num.index}" >
                         <input type="submit" value="comprar">
                     </form>
                 </td>
