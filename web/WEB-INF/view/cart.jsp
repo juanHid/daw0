@@ -11,7 +11,7 @@
 
             <div id="centerColumn">
 
-                <p>Tu carrito de la compra contiene X artï¿½culos.</p>
+                <p>Tu carrito de la compra contiene ${carrito.numProductos} artículos.</p>
 
                  <div id="actionBar">
                     <%-- si esta definido el carrito i el numero de elemento  es >0--%>
@@ -23,7 +23,7 @@
                 </div>
 
                 <%-- si el carrito esta definiido y tengo elementos en el carrito  --%>  
-                <h4 id="subtotal">[ subtotal: xxx ]</h4>
+                <h4 id="subtotal">[ subtotal: ${carrito.totalCarrito} &euro;]</h4>
 
                 <table id="cartTable">
 
@@ -34,15 +34,22 @@
                         <th>cantidad</th>
                     </tr>
 
+                    
+        <c:forEach var="productoCarrito" items="${carrito.listaCarrito}" varStatus="num"> 
+                    
+                    
+                          
+                    
+                    
                     <tr>
                         <td class="lightBlue">
-                            <img src="#" alt="product image">
+                            <img src="${initParam.productImagePath}/${productoCarrito.producto.imagen}" width="140px" height="80px"  alt="${productoCarrito.producto.nombre}">
                         </td>
                         
-                        <td class="lightBlue">[ nombre producto ]</td>
+                        <td class="lightBlue">${productoCarrito.producto.nombre}</td>
                         
                         <td class="lightBlue">
-                            [&euro; precio ] <%-- precio productos --%>
+                            ${productoCarrito.producto.precio} &euro;  <%-- precio productos --%>
                             <br>
                             <span class="smallText">
                                 [detalles precio unitad]
@@ -50,7 +57,7 @@
                             </span>
                         </td>
                         
-                        <td class="lightBlue">[ cuantidad ]
+                        <td class="lightBlue">${productoCarrito.cantidad}
 
                             <form action="updateCart" method="post">
                                 <input type="hidden"
@@ -67,7 +74,13 @@
                             </form>
                         </td>
                     </tr>
+                    
+            </c:forEach>         
+                    
 
+             <!--       
+                    
+                    
                      <tr>
                         <td class="white">
                             <img src="#" alt="product image">
@@ -135,7 +148,7 @@
                             </form>
                         </td>
                     </tr>
-
+-->
                 </table>
 
             </div>

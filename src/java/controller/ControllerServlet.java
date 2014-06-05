@@ -2,6 +2,8 @@ package controller;
 
 import beans.Categoria;
 import beans.Producto;
+import carrito.CarritoCompra;
+import carrito.ProductoCarrito;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
@@ -23,6 +25,8 @@ public class ControllerServlet extends HttpServlet {
 
     ArrayList<Categoria> listaCategorias;
     ArrayList<Producto> listaProductos ;
+     //declaro un carrito global
+   CarritoCompra carrito ;
 
     @Override
     public void init() throws ServletException {
@@ -44,7 +48,8 @@ public class ControllerServlet extends HttpServlet {
         DatabaseManager.openConnection();
 
         listaCategorias = new ArrayList<Categoria>();
-  //  listaProductos = new ArrayList<Producto>();
+        carrito = new CarritoCompra();
+
         //llamamos a una funcion que busque en base de datos todas las categorias
         listaCategorias = buscaCategorias();
         //lo guardamos en session
@@ -73,10 +78,13 @@ public class ControllerServlet extends HttpServlet {
         String categoriaId;
         int categoriaIdInt;
         Categoria catTemp;
-      //   ArrayList<Producto> listaProductos=new ArrayList<Producto>();
- listaProductos=new ArrayList<Producto>();
+        //   ArrayList<Producto> listaProductos=new ArrayList<Producto>();
+        // Lo declaramos en el servlet y lo inicializamos aqui para poder 
+        // acceder a la lista desde todo el servlet (doGet y doPost)
+        
+        listaProductos=new ArrayList<Producto>();
         if (userPath.equals("/category")) {
-           //Muestra pagina de productos por categoria
+            //Muestra pagina de productos por categoria
 
             //Pagina a la que nos dirigiremos despues 
             url = "/WEB-INF/view/category.jsp";
@@ -147,24 +155,41 @@ public class ControllerServlet extends HttpServlet {
             url = "/WEB-INF/view/category.jsp";
             
             
-                      //agrega producto al carrito
+            //recojo valor del campo hidden productoId en category.jsp
             String productoId=request.getParameter("productoId");
             
-          
+           // lo paso a int
             int productoIdInt=Integer.parseInt(productoId);
             
-            LoggerManager.getLog().info("obtenido int " +productoIdInt);
+          
             
-            Producto producto=listaProductos.get(productoIdInt);
-           // carrito.add(producto);
+           // LoggerManager.getLog().info("obtenido int " +productoIdInt);
             
-            LoggerManager.getLog().info("añadido " +producto.getNombre()); 
+            //Creo un objeto productoCarrito con el producto seleccionado
+            ProductoCarrito productoCarrito=new ProductoCarrito(obtenerProducto(productoIdInt));
+            carrito.agregarProductoCarrito(productoCarrito,1);
             
+   /*    
+            //Comprobar si el producto ya existe en la lista, si es asi aumentar su propiedad cantidad
+            if(comprobarProducto(productoIdInt)){
+                
+                productoCarrito.agregarCantidad(1);
+               // carrito.getListaCarrito().add(productoCarrito);
+            }else{
+             // si no añadirlo
+            //lo añado al carrito
+            carrito.getListaCarrito().add(productoCarrito);
+                
+            }
+         */   
+           
+            //lo añado a sesion
+            request.getSession().setAttribute("carrito", carrito);
+            LoggerManager.getLog().info("carrito " +carrito.getListaCarrito().size());
+   
             
-            
-            
-            
-            
+           // LoggerManager.getLog().info("añadido " +producto.getNombre()); 
+               
 
         } else if (userPath.equals("/updateCart")) {
             //aumenta la cantidad del producto en el carrito
@@ -362,5 +387,36 @@ public class ControllerServlet extends HttpServlet {
 
         }
 
+    }
+
+    private Producto obtenerProducto(int productoIdInt) {
+        Producto producto=null;
+        for(int i=0;i<listaProductos.size();i++){
+            if(listaProductos.get(i).getId()==productoIdInt){
+                
+                return listaProductos.get(i);
+            }
+            
+        }
+        
+        
+        return producto;
+        
+    }
+
+    private boolean comprobarProducto(int productoIdInt) {
+        boolean existe=false;
+        for(int i=0;i<carrito.getListaCarrito().size();i++){
+            if(carrito.getListaCarrito().get(i).getProducto().getId()==productoIdInt){
+                
+                existe=true;
+                return existe;
+            }
+            
+            
+        }
+        
+        
+        return existe;
     }
 }

@@ -30,6 +30,7 @@
                     </div>  
 
                     <div class="headerWidget" id="viewCart">
+                         ${carrito.numProductos}
                         <img src="${initParam.images}/cart.gif" alt="carrito" id="carrito">
                         <%-- si el numeroElementos no existe o es 0, sino imprimir su valor --%>
                         <span class="horizontalMargin">
