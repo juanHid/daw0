@@ -18,11 +18,18 @@ public class CarritoCompra {
    private ArrayList<ProductoCarrito> listaCarrito;
    private double totalCarrito;
    private int numProductos;
+   final private double GASTOS=6.50;
 
     public CarritoCompra() {
         listaCarrito=new ArrayList<ProductoCarrito>();
     } 
+
+    public double getGASTOS() {
+        return GASTOS;
+    }
    
+    
+    
    public int getNumProductos(){
        int num=0;
        for(int i=0;i<listaCarrito.size();i++){
@@ -43,6 +50,7 @@ public class CarritoCompra {
     }
 
     public double getTotalCarrito() {
+        totalCarrito=0;
         for (int i=0;i<listaCarrito.size();i++){
             totalCarrito+=(listaCarrito.get(i).getProducto().getPrecio())*(listaCarrito.get(i).getCantidad());
             
@@ -73,6 +81,17 @@ public class CarritoCompra {
                  listaCarrito.add(productoCarrito); 
             }
      }
+
+    public void actualizarCarrito(int prodructIdInt, int cantidadInt) {
+       
+            for(int i=0;i<listaCarrito.size();i++){                  
+                   if(listaCarrito.get(i).getProducto().getId()==prodructIdInt){
+                       listaCarrito.get(i).setCantidad(cantidadInt);
+                   }
+            }  
+        
+        
+    }
  
    
    

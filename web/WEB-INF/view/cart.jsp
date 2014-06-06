@@ -15,9 +15,9 @@
 
                  <div id="actionBar">
                     <%-- si esta definido el carrito i el numero de elemento  es >0--%>
-                    <a href="#" class="bubble hMargin">limpiar carrito</a>
+                    <a href="viewCart?limpiar=true" class="bubble hMargin">limpiar carrito</a>
                      <%-- si el usuario ha selecionado una categoria sino me quedo en la pagina inicial--%>
-                    <a href="category" class="bubble hMargin">continuar la compra</a>
+                    <a href="category?categoriaId=${catId}" class="bubble hMargin">continuar la compra</a>
                      <%-- si esta definido el carrito i el numero de elemento es >0 procedo con el pedido--%>
                     <a href="checkout" class="bubble hMargin">proceder con el pedido</a>
                 </div>
@@ -62,11 +62,11 @@
                             <form action="updateCart" method="post">
                                 <input type="hidden"
                                        name="productId"
-                                       value="productoId"> <%--id del producto --%>
+                                       value="${productoCarrito.producto.id}"> <%--id del producto --%>
                                 <input type="text"
                                        maxlength="2"
                                        size="2"
-                                       value="1" <%--cantidad de productos que tengo en el carrito --%>
+                                        <%--cantidad de productos que tengo en el carrito --%>
                                        name="quantity">
                                 <input type="submit"
                                        name="submit"

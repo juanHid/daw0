@@ -114,6 +114,21 @@ public class ControllerServlet extends HttpServlet {
         } else if (userPath.equals("/viewCart")) {
             //muestra contenido del carrito
             url = "/WEB-INF/view/cart.jsp";
+            
+           //  LoggerManager.getLog().info("Hay que limpiar carrito");
+           
+            //Quiero limpiar carrito?
+             String limpiar=request.getParameter("limpiar");
+             
+             if(limpiar!=null && limpiar.equals("true")){
+                 carrito = new CarritoCompra();
+                 request.getSession().removeAttribute("carrito"); 
+                
+             }
+             
+              
+             
+            
 
         } else if (userPath.equals("/checkout")) {
             //muestra pagina datos personales para el pedido
@@ -160,29 +175,13 @@ public class ControllerServlet extends HttpServlet {
             
            // lo paso a int
             int productoIdInt=Integer.parseInt(productoId);
-            
           
-            
            // LoggerManager.getLog().info("obtenido int " +productoIdInt);
             
             //Creo un objeto productoCarrito con el producto seleccionado
             ProductoCarrito productoCarrito=new ProductoCarrito(obtenerProducto(productoIdInt));
             carrito.agregarProductoCarrito(productoCarrito,1);
-            
-   /*    
-            //Comprobar si el producto ya existe en la lista, si es asi aumentar su propiedad cantidad
-            if(comprobarProducto(productoIdInt)){
-                
-                productoCarrito.agregarCantidad(1);
-               // carrito.getListaCarrito().add(productoCarrito);
-            }else{
-             // si no añadirlo
-            //lo añado al carrito
-            carrito.getListaCarrito().add(productoCarrito);
-                
-            }
-         */   
-           
+                    
             //lo añado a sesion
             request.getSession().setAttribute("carrito", carrito);
             LoggerManager.getLog().info("carrito " +carrito.getListaCarrito().size());
@@ -194,10 +193,40 @@ public class ControllerServlet extends HttpServlet {
         } else if (userPath.equals("/updateCart")) {
             //aumenta la cantidad del producto en el carrito
             url = "/WEB-INF/view/cart.jsp";
+            
+            //Obtengo valores del formulario de actualizacion del cart
+            String cantidad=request.getParameter("quantity");
+            String productId=request.getParameter("productId");
+            int cantidadInt=Integer.parseInt(cantidad);
+            int prodructIdInt=Integer.parseInt(productId);
+            
+            // LoggerManager.getLog().info("cantidadInt " +cantidadInt);
+            // LoggerManager.getLog().info("prodructIdInt " +prodructIdInt);
+            
+            //Llamo al metodo para cambiar la cantidad de productos del carrito
+            carrito.actualizarCarrito(prodructIdInt,cantidadInt);
+            //Actualizo el total
+            carrito.getTotalCarrito();
+            
+            
 
         } else if (userPath.equals("/purchase")) {
             //resumen del pedido
             url = "/WEB-INF/view/confirmation.jsp";
+            String nombre=request.getParameter("nombre");
+            String email=request.getParameter("email");
+            String telefono=request.getParameter("telefono");
+            String direccion=request.getParameter("direccion");
+            String poblacion=request.getParameter("poblacion");
+            String tarjeta=request.getParameter("tarjeta");
+            
+            //Llamo a un metodo donde gestiono la orden del cliente y 
+            //obtengo su id
+           String ordenId=gestionaOrden(nombre,email,telefono,direccion,poblacion,tarjeta,carrito);
+            
+            
+            
+            
         } else {
             //nada
         }
@@ -404,19 +433,47 @@ public class ControllerServlet extends HttpServlet {
         
     }
 
-    private boolean comprobarProducto(int productoIdInt) {
-        boolean existe=false;
+    private String gestionaOrden(String nombre, String email, String telefono, String direccion, String poblacion, String tarjeta, CarritoCompra carrito) {
+        String numOrden="464545";
+         DatabaseManager.openConnection();
+        String clienteSql="INSERT INTO cliente (nombre,email,telefono,direccion,poblacion,tarjeta)"
+                           + " VALUES ('"+nombre+"','"+email+"','"+telefono+"','"+direccion+"','"+poblacion+"','"+tarjeta+"')";
+        
+        // LoggerManager.getLog().info(clienteSql);
+        
+        double total=carrito.getTotalCarrito();
+        
+        String ordenClienteSql="INSERT INTO orden_cliente (total,numero_confirmacion,cliente_id) "
+                             + "VALUES ('"+total+"','"+numOrden+"',CLIENTE_ID)";
+         
+       //LoggerManager.getLog().info(ordenClienteSql);
+        
+        String clienteProductoSql="INSERT INTO orden_cliente_has_producto (orden_cliente_id,producto_id,cantidad)"
+                             + " VALUES (ORDENCLIENTE_ID,PRODUCTO_ID,CANTIDAD)";
+        
+      // LoggerManager.getLog().info(clienteProductoSql);
+         
+        //ordenClienteIdString = obtenerlo de la otra query
+        clienteProductoSql=clienteProductoSql.replaceAll("ORDENCLIENTE_ID", ordenClienteIdString);
+        
         for(int i=0;i<carrito.getListaCarrito().size();i++){
-            if(carrito.getListaCarrito().get(i).getProducto().getId()==productoIdInt){
-                
-                existe=true;
-                return existe;
-            }
+            int id=carrito.getListaCarrito().get(i).getProducto().getId();
+            int cantidad=carrito.getListaCarrito().get(i).getCantidad();
+            String idString=String.valueOf(id);
+            String cantidadString=String.valueOf(cantidad);
             
             
+           clienteProductoSql=clienteProductoSql.replaceAll("PRODUCTO_ID", idString);
+           clienteProductoSql=clienteProductoSql.replaceAll("CANTIDAD", cantidadString);
+           
+           //ejecutar la query
         }
         
-        
-        return existe;
+       
+       
+         DatabaseManager.closeConnection();
+         return numOrden;
     }
+
+   
 }

@@ -48,19 +48,34 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="direcion">Direcion</label></td>
+                    <td><label for="direccion">Dirección</label></td>
                     <td class="inputField">
                         <input type="text"
                                size="31"
                                maxlength="45"
                                id="direcion"
-                               name="direcion">
+                               name="direccion">
 
-                        <br>
-                        Barcelona
+                      
+                        
                    
                 </td>
             </tr>
+             <tr>
+                    <td><label for="poblacion">Población</label></td>
+                    <td class="inputField">
+                        <input type="text"
+                               size="31"
+                               maxlength="45"
+                               id="poblacion"
+                               name="poblacion">
+
+                </td>
+            </tr>
+            
+            
+            
+            
             <tr>
                 <td><label for="tarjeta:">Tarjeta:</label></td>
                 <td class="inputField">
@@ -83,25 +98,25 @@
 
         <ul>
             <li>Entregamos el dia siguente</li>
-            <li>Se aplican unos &euro; [gastos de spedicion]
-                para los gastos de envio</li>
+            <li>Se aplican ${carrito.GASTOS} &euro; 
+                de gastos de envio</li>
         </ul>
 
         <table id="priceBox">
             <tr>
                 <td>Subtotal:</td>
                 <td class="checkoutPriceColumn">
-                    &euro; [subtotale carrito de la compra]</td>
+                   ${carrito.totalCarrito} &euro; </td>
             </tr>
             <tr>
-                <td>Gastos envios:</td>
+                <td>Gastos envio:</td>
                 <td class="checkoutPriceColumn">
-                    &euro; [gastos de spedicion] </td>
+                   ${carrito.GASTOS} &euro;  </td>
             </tr>
             <tr>
                 <td class="total">Total:</td>
                 <td class="total checkoutPriceColumn">
-                    &euro; [total ]</td>
+                   ${carrito.totalCarrito+carrito.GASTOS} &euro; </td>
             </tr>
         </table>
     </div>
