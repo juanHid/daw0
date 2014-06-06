@@ -462,7 +462,7 @@ public class ControllerServlet extends HttpServlet {
             String idString=String.valueOf(id);
             String cantidadString=String.valueOf(cantidad);
             
-            
+            // sustituyo por los valores de la lista del carrito
            clienteProductoSql=clienteProductoSql.replaceAll("PRODUCTO_ID", idString);
            clienteProductoSql=clienteProductoSql.replaceAll("CANTIDAD", cantidadString);
            
