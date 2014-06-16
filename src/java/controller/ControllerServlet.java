@@ -435,39 +435,79 @@ public class ControllerServlet extends HttpServlet {
 
     private String gestionaOrden(String nombre, String email, String telefono, String direccion, String poblacion, String tarjeta, CarritoCompra carrito) {
         String numOrden="464545";
-         DatabaseManager.openConnection();
+        
+        DatabaseManager.openConnection();
         String clienteSql="INSERT INTO cliente (nombre,email,telefono,direccion,poblacion,tarjeta)"
                            + " VALUES ('"+nombre+"','"+email+"','"+telefono+"','"+direccion+"','"+poblacion+"','"+tarjeta+"')";
         
-        // LoggerManager.getLog().info(clienteSql);
+        LoggerManager.getLog().info(clienteSql);
         
         double total=carrito.getTotalCarrito();
         
         String ordenClienteSql="INSERT INTO orden_cliente (total,numero_confirmacion,cliente_id) "
                              + "VALUES ('"+total+"','"+numOrden+"',CLIENTE_ID)";
          
-       //LoggerManager.getLog().info(ordenClienteSql);
+       LoggerManager.getLog().info(ordenClienteSql);
         
         String clienteProductoSql="INSERT INTO orden_cliente_has_producto (orden_cliente_id,producto_id,cantidad)"
-                             + " VALUES (ORDENCLIENTE_ID,PRODUCTO_ID,CANTIDAD)";
+                             + " VALUES (ORDENCLIENTE_ID, ?, ?)";
         
-      // LoggerManager.getLog().info(clienteProductoSql);
-         
-        //ordenClienteIdString = obtenerlo de la otra query
-        clienteProductoSql=clienteProductoSql.replaceAll("ORDENCLIENTE_ID", ordenClienteIdString);
-        
-        for(int i=0;i<carrito.getListaCarrito().size();i++){
+      LoggerManager.getLog().info(clienteProductoSql);
+      
+      
+      PreparedStatement preparedStatement=null;
+      ResultSet resultSet=null;
+        try {
+            //ordenClienteIdString = obtenerlo de la otra query
+            
+            
+            DatabaseManager.conn.setAutoCommit(false);
+            
+            int clientId= DatabaseManager.executeUpdate(clienteSql);
+            LoggerManager.getLog().info("valor de cliente id " + clientId);
+            
+            ordenClienteSql=ordenClienteSql.replaceAll("CLIENTE_ID", String.valueOf(clientId));
+            
+            LoggerManager.getLog().info("valor2aSQL "+ordenClienteSql);
+            
+            int ordenClienteId= DatabaseManager.executeUpdate(ordenClienteSql);
+             LoggerManager.getLog().info("valor de orden cliente "+ordenClienteId);
+            clienteProductoSql=clienteProductoSql.replaceAll("ORDENCLIENTE_ID", String.valueOf(ordenClienteId));
+            LoggerManager.getLog().info("valor3aSQL "+ clienteProductoSql);
+            
+             preparedStatement = DatabaseManager.conn.prepareStatement(clienteProductoSql);
+             
+             
+                for(int i=0;i<carrito.getListaCarrito().size();i++){
             int id=carrito.getListaCarrito().get(i).getProducto().getId();
             int cantidad=carrito.getListaCarrito().get(i).getCantidad();
             String idString=String.valueOf(id);
             String cantidadString=String.valueOf(cantidad);
             
             // sustituyo por los valores de la lista del carrito
-           clienteProductoSql=clienteProductoSql.replaceAll("PRODUCTO_ID", idString);
-           clienteProductoSql=clienteProductoSql.replaceAll("CANTIDAD", cantidadString);
+          // clienteProductoSql=clienteProductoSql.replaceAll("PRODUCTO_ID", idString);
+           //clienteProductoSql=clienteProductoSql.replaceAll("CANTIDAD", cantidadString);
            
+            preparedStatement.setInt(1, id);
+             preparedStatement.setInt(2, cantidad);
+             preparedStatement.executeUpdate();
+             
+            LoggerManager.getLog().info("valor bucle "+i +" sql "+ clienteProductoSql);
            //ejecutar la query
         }
+             
+             
+             
+             
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+      
+	
+        
+     
         
        
        
