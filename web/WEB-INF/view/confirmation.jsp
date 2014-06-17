@@ -14,7 +14,7 @@
             <strong>Tu orden ha sido procesado y será entregado en un plazo de 24 horas.</strong>
             <br><br>
             Tu numero de pedido es:
-            <strong>[ número de referencia ]</strong>
+            <strong>${orden.numeroConfirmacion}</strong>
             <br>
             Si tienes algunas preguntas en relación a tu pedido, <a href="#">contactanos</a>.
             <br><br>
@@ -33,17 +33,21 @@
                     <td>cuantidad</td>
                     <td>precio</td>
                 </tr>
+                
+                <c:forEach var="productoPedido" items="${orden.productosPedidos}" varStatus="num">
                 <tr class="lightBlue">
                     <td>
-                        [nombre producto]
+                       ${productoPedido.producto.nombre}
                     </td>
                     <td class="quantityColumn">
-                        [cuantidad]
+                        ${productoPedido.cantidad}
                     </td>
                     <td class="confirmationPriceColumn">
-                        &euro; [precio]
+                        ${productoPedido.producto.precio*productoPedido.cantidad} &euro; 
                     </td>
                 </tr>
+                </c:forEach> 
+                <!--
                 <tr class="white">
                     <td>[nombre producto]</td>
                     <td class="quantityColumn">
@@ -59,13 +63,13 @@
                     <td colspan="3" style="padding: 0 20px"><hr>
                     </td>
                 </tr>
-
+                -->
                 <tr class="lightBlue">
                     <td colspan="2" id="deliverySurchargeCellLeft">
                         <strong>Gastos de spedicion:</strong>
                     </td>
                     <td id="deliverySurchargeCellRight">
-                        &euro; [gastos de spedicion]
+                        ${orden.gastos} &euro;
                     </td>
                 </tr>
 
@@ -74,7 +78,7 @@
                         <strong>total:</strong>
                     </td>
                     <td id="totalCellRight">
-                        &euro; [total orden]
+                        ${orden.total} &euro; 
                     </td>
                 </tr>
 
@@ -86,7 +90,7 @@
                 <tr class="lightBlue">
                     <td colspan="3" id="dateProcessedRow">
                         <strong>Fecha pedido:</strong>
-                        [fecha orden]
+                        ${orden.fecha}
                     </td>
                 </tr>
             </table>
@@ -102,16 +106,16 @@
 
                 <tr>
                     <td colspan="3" class="lightBlue">
-                        [nombre cliente]
+                        ${cliente.nombre}
                         <br>
-                        [direcion cliente]
+                        ${cliente.direccion}
                         <br>
-                        Barcelona  [comarca cliente]
+                        ${cliente.poblacion}
+                        <br><br>
+                        <hr><br>
+                        <strong>email:</strong>  ${cliente.email}
                         <br>
-                        <hr>
-                        <strong>email:</strong>  [email cliente]
-                        <br>
-                        <strong>telefono</strong>  [telefono cliente]
+                        <strong>telefono</strong> ${cliente.telefono}
                     </td>
                 </tr>
             </table>
