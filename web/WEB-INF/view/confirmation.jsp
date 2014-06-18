@@ -78,7 +78,7 @@
                         <strong>total:</strong>
                     </td>
                     <td id="totalCellRight">
-                        ${orden.total} &euro; 
+                        ${orden.total+orden.gastos} &euro; 
                     </td>
                 </tr>
 

@@ -81,6 +81,8 @@ public class ControllerServlet extends HttpServlet {
         String url = null;
         String categoriaId;
         int categoriaIdInt;
+     //   request.getSession().setAttribute("catId", categoriaIdInt);
+        
         Categoria catTemp;
         //   ArrayList<Producto> listaProductos=new ArrayList<Producto>();
         // Lo declaramos en el servlet y lo inicializamos aqui para poder 
@@ -118,6 +120,14 @@ public class ControllerServlet extends HttpServlet {
         } else if (userPath.equals("/viewCart")) {
             //muestra contenido del carrito
             url = "/WEB-INF/view/cart.jsp";
+            
+            if(request.getSession().getAttribute("catId")==null){
+                 request.getSession().setAttribute("catId", 1);
+                
+            }
+           
+            request.getSession().setAttribute("carrito", carrito);
+            
 
            //  LoggerManager.getLog().info("Hay que limpiar carrito");
             //Quiero limpiar carrito?
@@ -130,8 +140,16 @@ public class ControllerServlet extends HttpServlet {
             }
 
         } else if (userPath.equals("/checkout")) {
-            //muestra pagina datos personales para el pedido
+            //muestra pagina datos personales para el pedido 
             url = "/WEB-INF/view/checkout.jsp";
+            
+            //comprobar si carrito  esta vacio
+            
+            if(carrito.getTotalCarrito()==0){
+               url = "/index.jsp"; 
+            }
+  
+            
         } else {
             //nada
         }
@@ -194,13 +212,18 @@ public class ControllerServlet extends HttpServlet {
             int cantidadInt = Integer.parseInt(cantidad);
             int prodructIdInt = Integer.parseInt(productId);
 
-            // LoggerManager.getLog().info("cantidadInt " +cantidadInt);
-            // LoggerManager.getLog().info("prodructIdInt " +prodructIdInt);
-            //Llamo al metodo para cambiar la cantidad de productos del carrito
-            carrito.actualizarCarrito(prodructIdInt, cantidadInt);
-            //Actualizo el total
-            carrito.getTotalCarrito();
-
+            if(cantidadInt==0){
+                carrito.quitarProducto(prodructIdInt);
+                
+            }else{
+            
+                // LoggerManager.getLog().info("cantidadInt " +cantidadInt);
+                // LoggerManager.getLog().info("prodructIdInt " +prodructIdInt);
+                //Llamo al metodo para cambiar la cantidad de productos del carrito
+                carrito.actualizarCarrito(prodructIdInt, cantidadInt);
+                //Actualizo el total
+                carrito.getTotalCarrito();
+            }
         } else if (userPath.equals("/purchase")) {
             //resumen del pedido
             url = "/WEB-INF/view/confirmation.jsp";
@@ -211,15 +234,10 @@ public class ControllerServlet extends HttpServlet {
             String poblacion = request.getParameter("poblacion");
             String tarjeta = request.getParameter("tarjeta");
 
-            if(carrito!=null && carrito.getTotalCarrito()!=0 && nombre!=null && !nombre.equals("") && email!=null && !email.equals("") &&
+            if(  nombre!=null && !nombre.equals("") && email!=null && !email.equals("") &&
                telefono!=null && !telefono.equals("") && direccion!=null && !direccion.equals("") &&
                poblacion!=null && !poblacion.equals("") && tarjeta!=null && !tarjeta.equals("")){
-                
-                
-            
-            
-            
-            
+
             
             //Llamo a un metodo donde gestiono la orden del cliente y 
             //obtengo su id
@@ -228,15 +246,28 @@ public class ControllerServlet extends HttpServlet {
             DateFormat df =  DateFormat.getDateInstance();
             String fechaHoy =  df.format(now);
             
+            if(carrito.getTotalCarrito()!=0 ){
             
-            String ordenId = gestionaOrden(nombre, email, telefono, direccion, poblacion, tarjeta, carrito);
             
-            Cliente cliente= new Cliente(nombre, email, telefono, direccion, poblacion, tarjeta);
-            OrdenCliente orden= new OrdenCliente(ordenId,fechaHoy,carrito.getTotalCarrito(), carrito.getGASTOS(),carrito.getListaCarrito());
+                String ordenId = gestionaOrden(nombre, email, telefono, direccion, poblacion, tarjeta, carrito);
+
+                Cliente cliente= new Cliente(nombre, email, telefono, direccion, poblacion, tarjeta);
+                OrdenCliente orden= new OrdenCliente(ordenId,fechaHoy,carrito.getTotalCarrito(), carrito.getGASTOS(),carrito.getListaCarrito());
+
+                request.getSession().setAttribute("cliente", cliente);
+                request.getSession().setAttribute("orden", orden); 
+
+                //limpiar carrito
+                carrito = new CarritoCompra();
+                request.getSession().removeAttribute("carrito");
             
-            request.getSession().setAttribute("cliente", cliente);
-            request.getSession().setAttribute("orden", orden); 
+            }
+            
+            
+            
             }else{
+                
+                
                 url = "/WEB-INF/view/checkout.jsp";
             }
             
@@ -447,7 +478,7 @@ public class ControllerServlet extends HttpServlet {
 
     private String gestionaOrden(String nombre, String email, String telefono, String direccion, String poblacion, String tarjeta, CarritoCompra carrito) {
         
-        double total = carrito.getTotalCarrito();       
+        double total = carrito.getTotalCarrito()+carrito.getGASTOS();       
         DatabaseManager.openConnection();
         PreparedStatement preparedStatement = null;
         

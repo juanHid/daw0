@@ -11,7 +11,8 @@
 
             <div id="centerColumn">
 
-                <p>Tu carrito de la compra contiene ${carrito.numProductos} artículos.</p>
+         <!--       <p>Tu carrito de la compra contiene ${carrito.numProductos} artículos.</p>  -->
+                <p> ${carrito.mensaje}</p>
 
                  <div id="actionBar">
                     <%-- si esta definido el carrito i el numero de elemento  es >0--%>

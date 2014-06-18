@@ -17,15 +17,26 @@ public class CarritoCompra {
     
    private ArrayList<ProductoCarrito> listaCarrito;
    private double totalCarrito;
-   private int numProductos;
+   private int numProductos=0;
    final private double GASTOS=6.50;
+   private String mensaje="Tu carrito esta vacio, saca la tarjeta !!";
 
     public CarritoCompra() {
         listaCarrito=new ArrayList<ProductoCarrito>();
+        
     } 
 
     public double getGASTOS() {
         return GASTOS;
+    }
+
+    public String getMensaje() {
+        
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
    
     
@@ -65,7 +76,7 @@ public class CarritoCompra {
     }
 
     public void agregarProductoCarrito(ProductoCarrito productoCarrito,int cantidad){
-       
+             
         boolean existe=false;
     
             for(int i=0;i<listaCarrito.size();i++){                  
@@ -79,7 +90,10 @@ public class CarritoCompra {
            
             if(existe==false){
                  listaCarrito.add(productoCarrito); 
-            }
+            } 
+            
+              this.mensaje="Tu carrito contiene "+getNumProductos()+" articulos.";
+            
      }
 
     public void actualizarCarrito(int prodructIdInt, int cantidadInt) {
@@ -90,6 +104,19 @@ public class CarritoCompra {
                    }
             }  
         
+         this.mensaje="Tu carrito contiene "+getNumProductos()+" articulos.";
+    }
+
+    public void quitarProducto(int prodructIdInt) {
+        
+        for(int i=0;i<listaCarrito.size();i++){
+                  if(listaCarrito.get(i).getProducto().getId()==prodructIdInt){
+                       listaCarrito.remove(i);
+                   }
+            
+            
+        }
+         this.mensaje="Tu carrito contiene "+getNumProductos()+" articulos.";
         
     }
  

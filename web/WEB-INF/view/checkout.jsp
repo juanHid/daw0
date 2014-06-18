@@ -15,7 +15,7 @@
 
         <p>Para comprar los productos de tu carrito de la compra, necesitamos la siguiente informacion:</p>
 
-        <form action="purchase" method="post">
+        <form action="purchase" method="post" >
             <table id="checkoutTable">
                 <tr>
                     <td><label for="nombre">Nombre</label></td>
@@ -24,7 +24,7 @@
                                size="31"
                                maxlength="45"
                                id="nombre"
-                               name="nombre">
+                               name="nombre" >
                     </td>
                 </tr>
                 <tr>
